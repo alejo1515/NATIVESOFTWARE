@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Perfil - Native Social Media</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #1a1a2e; /* Dark background similar to the image */
+            color: #ffffff; /* White text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container-fluid {
+            max-width: 600px; /* Slightly wider to accommodate more info */
+            background-color: #282a3e; /* Slightly lighter dark background for the form area */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        h1, h2, .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            background: linear-gradient(to right, #8a2be2, #ff69b4); /* Gradient similar to the image's top bar */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            text-align: left; /* Align section titles to the left */
+        }
+        .form-label {
+            color: #b0b0c0;
+            font-weight: 500;
+        }
+        .form-control, .form-select, .form-control:read-only {
+            background-color: #3b3d57; /* Darker input background */
+            border: 1px solid #5a5c70;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #4a4c6a;
+            border-color: #8a2be2;
+            box-shadow: 0 0 0 0.25rem rgba(138, 43, 226, 0.25);
+            color: #ffffff;
+        }
+        .form-check-input {
+            background-color: #3b3d57;
+            border: 1px solid #5a5c70;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-check-input:checked {
+            background-color: #8a2be2;
+            border-color: #8a2be2;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #8a2be2, #ff69b4); /* Gradient for button */
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+        .text-center {
+            margin-top: 20px;
+            color: #b0b0c0;
+        }
+        hr {
+            border-color: rgba(255, 255, 255, 0.1);
+            margin: 30px 0;
+        }
+        .profile-pic-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .profile-pic-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #8a2be2; /* Accent border */
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+        .custom-file-input {
+            visibility: hidden; /* Hide the default file input */
+            width: 0;
+            height: 0;
+        }
+        .custom-file-label {
+            display: inline-block;
+            background: linear-gradient(to right, #6a1a9e, #d852a3); /* Gradient for upload button */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .custom-file-label:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="mb-4">Native Social Media</h1>
+        <h2>Configuración de Perfil</h2>
+        <p class="text-center mb-4">Actualiza tu información personal y preferencias.</p>
+
+        <form>
+            <h3 class="section-title"><i class="bi bi-person-circle me-2"></i>Foto de Perfil</h3>
+            <hr>
+            <div class="profile-pic-section">
+                <img id="profilePicPreview" src="https://via.placeholder.com/150/282a3e/FFFFFF?text=Tu+Foto" alt="Foto de Perfil" class="profile-pic-preview">
+                <input type="file" class="custom-file-input" id="profilePicInput" accept="image/*">
+                <label for="profilePicInput" class="custom-file-label">
+                    <i class="bi bi-upload me-2"></i>Cambiar Foto
+                </label>
+            </div>
+
+            <h3 class="section-title"><i class="bi bi-info-circle-fill me-2"></i>Información Personal</h3>
+            <hr>
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Nombre Completo</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" id="fullName" placeholder="Tu nombre completo" value="Juan Pérez">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de Usuario</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-at"></i></span>
+                    <input type="text" class="form-control" id="username" placeholder="Tu nombre de usuario" value="juanperezdev">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-envelope-fill"></i></span>
+                    <input type="email" class="form-control" id="email" placeholder="Tu correo electrónico" value="juan.perez@example.com">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="bio" class="form-label">Biografía</label>
+                <textarea class="form-control" id="bio" rows="4" placeholder="Cuentanos un poco sobre ti y tus intereses como desarrollador...">Soy un desarrollador full-stack apasionado por las tecnologías web y el código abierto. Me encanta aprender y colaborar en proyectos innovadores.</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Ubicación</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-geo-alt-fill"></i></span>
+                    <input type="text" class="form-control" id="location" placeholder="Tu ciudad, país" value="Bogotá, Colombia">
+                </div>
+            </div>
+
+            <h3 class="section-title"><i class="bi bi-key-fill me-2"></i>Contraseña</h3>
+            <hr>
+            <div class="mb-3">
+                <label for="currentPassword" class="form-label">Contraseña Actual</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control" id="currentPassword" placeholder="Ingresa tu contraseña actual">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="newPassword" class="form-label">Nueva Contraseña</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control" id="newPassword" placeholder="Deja en blanco para no cambiar">
+                    <button class="btn btn-outline-secondary" type="button" id="toggleNewPasswordVisibility" style="background-color: #3b3d57; border-color: #5a5c70; color: #ffffff;">
+                        <i class="bi bi-eye-fill"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="confirmNewPassword" class="form-label">Confirmar Nueva Contraseña</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirma tu nueva contraseña">
+                    <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPasswordVisibility" style="background-color: #3b3d57; border-color: #5a5c70; color: #ffffff;">
+                        <i class="bi bi-eye-fill"></i>
+                    </button>
+                </div>
+            </div>
+
+            <h3 class="section-title"><i class="bi bi-globe me-2"></i>Portafolio y Redes</h3>
+            <hr>
+            <div class="mb-3">
+                <label for="githubLink" class="form-label">GitHub</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-github"></i></span>
+                    <input type="url" class="form-control" id="githubLink" placeholder="Enlace a tu perfil de GitHub" value="https://github.com/juanperezdev">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="linkedinLink" class="form-label">LinkedIn</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-linkedin"></i></span>
+                    <input type="url" class="form-control" id="linkedinLink" placeholder="Enlace a tu perfil de LinkedIn" value="https://linkedin.com/in/juanperezdev">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="portfolioLink" class="form-label">Portafolio Personal</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-link-45deg"></i></span>
+                    <input type="url" class="form-control" id="portfolioLink" placeholder="Enlace a tu sitio web o portafolio" value="https://juanperezdev.com">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="twitterLink" class="form-label">Twitter/X</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-twitter-x"></i></span>
+                    <input type="url" class="form-control" id="twitterLink" placeholder="Enlace a tu perfil de Twitter/X">
+                </div>
+            </div>
+
+            <h3 class="section-title"><i class="bi bi-gear-fill me-2"></i>Preferencias Generales</h3>
+            <hr>
+            <div class="mb-3">
+                <label for="themeSelect" class="form-label">Tema de la Interfaz</label>
+                <select class="form-select" id="themeSelect">
+                    <option selected>Oscuro (Predeterminado)</option>
+                    <option value="claro">Claro</option>
+                    <option value="azul">Azul Profundo</option>
+                </select>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="emailNotifications" checked>
+                <label class="form-check-label" for="emailNotifications">Recibir notificaciones por correo electrónico</label>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="profileVisibility" checked>
+                <label class="form-check-label" for="profileVisibility">Hacer mi perfil público</label>
+            </div>
+
+            <hr class="mt-5">
+
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to toggle password visibility
+            function setupPasswordToggle(toggleButtonId, passwordInputId) {
+                const toggleButton = document.getElementById(toggleButtonId);
+                const passwordInput = document.getElementById(passwordInputId);
+
+                if (toggleButton && passwordInput) {
+                    toggleButton.addEventListener('click', function() {
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordInput.setAttribute('type', type);
+                        this.querySelector('i').classList.toggle('bi-eye-fill');
+                        this.querySelector('i').classList.toggle('bi-eye-slash-fill');
+                    });
+                }
+            }
+
+            // Setup toggles for new password and confirm new password
+            setupPasswordToggle('toggleNewPasswordVisibility', 'newPassword');
+            setupPasswordToggle('toggleConfirmPasswordVisibility', 'confirmNewPassword');
+
+
+            // Profile picture preview logic
+            const profilePicInput = document.getElementById('profilePicInput');
+            const profilePicPreview = document.getElementById('profilePicPreview');
+
+            profilePicInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profilePicPreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

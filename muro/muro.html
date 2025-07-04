@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muro de Publicaciones - Native Software</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f1c2d, #0a2e4a); /* Dark blue gradient background */
+            color: #e0e0e0; /* Off-white text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align items to the top for a scrolling feed */
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 20px; /* Padding for the whole page */
+            box-sizing: border-box;
+        }
+        .wall-container {
+            max-width: 650px; /* Wider for a feed */
+            width: 100%; /* Ensure it takes full width up to max-width */
+            background-color: #1c2e42; /* Slightly lighter dark blue for the main wall area */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .main-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #007bff, #17a2b8); /* Blue to cyan gradient text */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .post-card {
+            background-color: #2a3d50; /* Darker blue for individual post cards */
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px; /* Space between posts */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .profile-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #007bff; /* Primary blue accent border */
+        }
+        .user-info .username {
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .user-info .username:hover {
+            color: #17a2b8; /* Cyan on hover */
+            text-decoration: underline;
+        }
+        .user-info .timestamp {
+            font-size: 0.85rem;
+            color: #b0c4de; /* Lighter blue-grey for timestamp */
+        }
+        .post-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+        }
+        .post-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: block; /* Ensure it takes full width */
+        }
+        .post-footer {
+            display: flex;
+            justify-content: space-around; /* Distribute items */
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .post-action {
+            display: flex;
+            align-items: center;
+            color: #b0c4de; /* Lighter blue-grey for actions */
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+            font-size: 0.95rem;
+            gap: 5px; /* Space between icon and text/number */
+        }
+        .post-action:hover {
+            color: #17a2b8; /* Cyan on hover */
+            transform: translateY(-2px);
+        }
+        .post-action i {
+            font-size: 1.2rem;
+        }
+
+        /* Styles for the "Back to Home" button */
+        .back-to-home-button {
+            position: fixed; /* Fixed position on screen */
+            top: 20px; /* 20px from the top */
+            left: 20px; /* 20px from the left */
+            background: linear-gradient(to right, #007bff, #17a2b8); /* Blue to cyan gradient */
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            color: #ffffff;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000; /* Ensure it's above other content */
+        }
+        .back-to-home-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5); /* Blue shadow on hover */
+            color: #ffffff; /* Keep text white on hover */
+        }
+
+        /* Style for the "Create Post" area */
+        .create-post-area {
+            background-color: #2a3d50; /* Darker blue, similar to post cards */
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px; /* Space below create post area */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .create-post-area:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        .create-post-area .profile-thumb {
+            width: 40px; /* Slightly smaller for the input area */
+            height: 40px;
+            border: 2px solid #17a2b8; /* Cyan accent for create post profile thumb */
+        }
+        .create-post-area .prompt-text {
+            flex-grow: 1; /* Take remaining space */
+            color: #b0c4de; /* Lighter blue-grey */
+            font-size: 1rem;
+            margin-left: 15px;
+            text-align: left;
+        }
+        .create-post-area .post-icon {
+            font-size: 1.8rem;
+            color: #17a2b8; /* Cyan accent for the icon */
+            margin-left: 10px;
+        }
+
+        /* Modal specific styling to match theme */
+        .modal-content {
+            background-color: #1c2e42; /* Dark blue background */
+            color: #e0e0e0;
+            border: 1px solid #4a6781;
+        }
+        .modal-header {
+            border-bottom: 1px solid #4a6781;
+        }
+        .modal-title {
+            background: linear-gradient(to right, #007bff, #17a2b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%); /* White close button */
+        }
+        .modal-footer {
+            border-top: 1px solid #4a6781;
+        }
+        .modal-footer .btn-secondary {
+            background-color: #2a3d50;
+            border-color: #4a6781;
+            color: #e0e0e0;
+        }
+        .modal-footer .btn-primary {
+            background: linear-gradient(to right, #007bff, #17a2b8);
+            border: none;
+            color: #ffffff;
+        }
+        .modal-footer .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+        .form-label {
+            color: #b0c4de; /* Lighter blue-grey for modal labels */
+        }
+        .form-control {
+            background-color: #2a3d50;
+            border: 1px solid #4a6781;
+            color: #ffffff;
+        }
+        .form-control:focus {
+            background-color: #3b5063;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <a href="../inicio/index.html" id="backHomeBtn" class="back-to-home-button">
+        <i class="bi bi-house-fill"></i> Inicio
+    </a>
+
+    <div class="wall-container">
+        <h1 class="main-title">Muro de Publicaciones</h1>
+
+        <div class="create-post-area" data-bs-toggle="modal" data-bs-target="#createPostModal">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf6258f9?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tu Foto de Perfil" class="profile-thumb">
+            <span class="prompt-text">¿Qué estás pensando, Juan?</span>
+            <i class="bi bi-plus-circle-fill post-icon"></i>
+        </div>
+
+        <div class="post-card">
+            <div class="post-header">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf6258f9?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Foto de Perfil" class="profile-thumb">
+                <div class="user-info">
+                    <a href="perfil_tercero.html?user=juanperezdev" class="username">Juan Pérez <i class="bi bi-patch-check-fill ms-1" style="color: #007bff;"></i></a>
+                    <span class="timestamp">Hace 2 horas</span>
+                </div>
+            </div>
+            <div class="post-content">
+                <p>¡Emocionado de compartir mi nuevo proyecto de desarrollo web! Es un sistema de gestión de tareas construido con React y Node.js. Estoy muy orgulloso del progreso hasta ahora. ¡El código estará pronto en GitHub!</p>
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Project Screenshot">
+            </div>
+            <div class="post-footer">
+                <div class="post-action">
+                    <i class="bi bi-heart-fill"></i> <span>124</span>
+                </div>
+                <div class="post-action">
+                    <i class="bi bi-chat-dots-fill"></i> <span>32</span>
+                </div>
+                <div class="post-action">
+                    <i class="bi bi-share-fill"></i> <span>8</span>
+                </div>
+            </div>
+        </div>
