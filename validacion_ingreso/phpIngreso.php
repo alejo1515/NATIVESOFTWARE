@@ -22,7 +22,7 @@ if (!$enlace)
     if($nr == 1)
     {
 
-        header("Location: menu.html.html");
+        header("Location: ../inicio/index.html");
     }
   else if ($nr == 0)
     {  $noIngreso = "no ingreso";

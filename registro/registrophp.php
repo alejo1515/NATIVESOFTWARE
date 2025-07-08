@@ -66,7 +66,7 @@
                 </div>
 
                 <input type="submit" class="btn-submit" name="registro">
-                <input type="reset">
+               
 
 
             </form>
