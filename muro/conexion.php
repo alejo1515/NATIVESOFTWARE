@@ -8,6 +8,7 @@ function diferencia($conexion){
 if(isset($_POST['publicar'])){
 insertar($conexion);
 
+
 }
 
 if(isset($_POST['eliminar'])){
@@ -31,6 +32,8 @@ $consulta ="INSERT INTO publicaciones(correo, contenido,fechaPublicacion, nombre
     VALUES ('$correo', '$contenido', NOW(), '$nombre', '$links')";
 mysqli_query($conexion, $consulta);
 mysqli_close($conexion);
+
+header("Location: muro.html");
 }
 
 function eliminar($conexion){

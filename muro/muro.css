@@ -1,240 +1,271 @@
-/* General Body Styles */
-body {
-    background-color: #121212; /* Darker background for contrast with dark card */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #e0e0e0; /* Light text for dark background */
-}
+  /* Estilos específicos para el modo oscuro, si no están ya en muro.css */
+        :root {
+            --dark-bg-primary: #1a2a3a;      /* Fondo principal muy oscuro */
+            --dark-bg-secondary: #2b3b4b;    /* Fondo de tarjetas/secciones */
+            --dark-text-primary: #e0e6eb;    /* Texto principal claro */
+            --dark-text-secondary: #a7b7c7;  /* Texto secundario/desactivado */
+            --dark-border-color: #3f5060;    /* Bordes sutiles */
+            --dark-input-bg: #1f3040;        /* Fondo de inputs */
+            --dark-input-border: #354555;    /* Borde de inputs */
+            --blue-accent: #3498db;          /* Azul vibrante para enlaces/botones principales */
+            --blue-accent-hover: #2980b9;    /* Azul más oscuro al pasar el ratón */
+        }
 
-/* Back to Home Button */
-.back-to-home-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+        body {
+            background-color: var(--dark-bg-primary);
+            color: var(--dark-text-primary);
+            line-height: 1.6;
+        }
 
-.back-to-home-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-    color: white; /* Keep text white on hover */
-}
+        /* Estilos para la barra de navegación y búsqueda */
+        .navbar {
+            background-color: #111b24; /* Un tono aún más oscuro para la barra superior */
+            border-bottom: 1px solid var(--dark-border-color);
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
 
-/* Main Container for the Wall */
-.wall-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    /* --- CRITICAL: Ensure these are set for vertical stacking --- */
-    display: flex; /* Use flexbox for spacing/alignment */
-    flex-direction: column; /* This forces items to stack vertically */
-    align-items: center; /* Centers items horizontally within the container */
-    gap: 20px; /* Adds space between post cards */
-}
+        .navbar-brand {
+            color: var(--blue-accent) !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
 
-/* Main Title */
-.main-title {
-    text-align: center;
-    color: #e0e0e0;
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-    font-weight: 700;
-}
+        .search-form .form-control {
+            background-color: var(--dark-input-bg);
+            color: var(--dark-text-primary);
+            border: 1px solid var(--dark-input-border);
+            border-radius: 20px; /* Bordes redondeados para el input de búsqueda */
+            padding-left: 15px;
+            padding-right: 15px;
+        }
 
-/* Search Section */
-.search-section {
-    background-color: #2c2c2c; /* Darker card background */
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    border: none;
-    color: #e0e0e0; /* Light text */
-    width: 100%; /* Ensure it takes full width of wall-container */
-    box-sizing: border-box; /* Include padding/border in width */
-}
+        .search-form .form-control::placeholder {
+            color: var(--dark-text-secondary);
+        }
 
-.search-section .form-label {
-    font-weight: bold;
-    color: #bbbbbb; /* Slightly lighter label color */
-}
+        .search-form .form-control:focus {
+            border-color: var(--blue-accent);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
 
-.search-section .form-control {
-    background-color: #3a3a3a; /* Darker input background */
-    color: #e0e0e0;
-    border: 1px solid #555;
-    border-radius: 8px;
-    padding: 10px 15px;
-}
+        .search-form .btn {
+            background-color: var(--blue-accent);
+            border-color: var(--blue-accent);
+            color: #fff;
+            border-radius: 20px; 
+            padding: 8px 20px;
+            margin-left: 10px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
 
-.search-section .form-control::placeholder {
-    color: #aaaaaa;
-}
+        .search-form .btn:hover {
+            background-color: var(--blue-accent-hover);
+            border-color: var(--blue-accent-hover);
+        }
 
-.search-section .form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
-    background-color: #3a3a3a; /* Keep dark background on focus */
-    color: #e0e0e0;
-}
+        
+        .wall-container {
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: var(--dark-bg-primary); 
+            border-radius: 8px;
+        }
 
-/* Post Card Styles (adapted for dark theme) */
-.post-card {
-    background-color: #2c2c2c; /* Dark background */
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    /* margin-bottom: 20px; <-- Replaced by gap on wall-container */
-    padding: 20px;
-    color: #e0e0e0; /* Light text for content */
-    width: 100%; /* Ensure it takes full width of wall-container */
-    box-sizing: border-box; /* Include padding/border in width */
-    max-width: 800px; /* Constrain width to match wall-container if needed */
-}
+        .main-title {
+            color: var(--blue-accent);
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-.post-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
+        .create-post-area {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--dark-bg-secondary);
+            border: 1px solid var(--dark-border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .create-post-area:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
 
-.post-card .profile-thumb {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 15px;
-    border: 2px solid #444; /* Darker border for profile pics */
-    cursor: pointer; /* Indicate clickable for profile pic upload */
-}
+        .profile-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid var(--blue-accent);
+        }
 
-.post-card .user-info {
-    display: flex;
-    flex-direction: column; /* Ensure user info stacks vertically */
-}
+        .prompt-text {
+            flex-grow: 1;
+            color: var(--dark-text-secondary);
+            font-style: italic;
+        }
 
-.post-card .username {
-    font-weight: bold;
-    color: #e0e0e0; /* Light username */
-    text-decoration: none;
-    font-size: 1.1rem;
-}
+        .post-icon {
+            font-size: 1.8rem;
+            color: var(--blue-accent);
+        }
 
-.post-card .username:hover {
-    color: #0099ff; /* Brighter blue on hover for dark theme */
-}
 
-.post-card .timestamp {
-    color: #999999; /* Lighter gray for timestamp */
-    font-size: 0.85rem;
-}
+        .post-card {
+            background-color: var(--dark-bg-secondary);
+            border: 1px solid var(--dark-border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
 
-.post-content p {
-    margin-bottom: 15px;
-    line-height: 1.6;
-    color: #e0e0e0; /* Light text for paragraphs */
-}
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-.post-content a {
-    color: #0099ff; /* Brighter blue for links */
-    text-decoration: none;
-}
+        .post-header .user-info {
+            display: flex;
+            flex-direction: column;
+        }
 
-.post-content a:hover {
-    text-decoration: underline;
-}
+        .post-header .username {
+            font-weight: bold;
+            color: var(--blue-accent); 
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        .post-header .username:hover {
+            text-decoration: underline;
+        }
 
-.post-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-top: 10px;
-    display: block;
-}
+        .post-header .timestamp {
+            color: var(--dark-text-secondary);
+            font-size: 0.85em;
+        }
 
-/* Styles specific to the Create Post Card */
-.create-post-card {
-    padding-bottom: 10px; /* Adjust padding for the button */
-}
+        .post-content p {
+            color: var(--dark-text-primary);
+            margin-bottom: 15px;
+        }
 
-.create-post-card .username-input {
-    background: transparent;
-    border: none;
-    color: #e0e0e0; /* Match username color */
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 0;
-    width: fit-content; /* Adjust width to content */
-    border-bottom: 1px dashed transparent; /* Dashed border for editable field */
-    transition: border-color 0.2s ease;
-}
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid var(--dark-border-color);
+        }
 
-.create-post-card .username-input:focus {
-    outline: none;
-    border-bottom-color: #007bff; /* Highlight on focus */
-}
+        .post-footer {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid var(--dark-border-color);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
 
-.create-post-card .form-control {
-    background-color: #3a3a3a;
-    color: #e0e0e0;
-    border: 1px solid #555;
-    border-radius: 8px;
-    padding: 12px 15px;
-    resize: vertical; /* Allow vertical resizing for textarea */
-}
+        .post-action {
+            display: flex;
+            align-items: center;
+            color: var(--dark-text-secondary);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
 
-.create-post-card .form-control::placeholder {
-    color: #aaaaaa;
-}
+        .post-action:hover {
+            color: var(--blue-accent);
+        }
 
-.create-post-card .form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
-    background-color: #3a3a3a;
-    color: #e0e0e0;
-}
+        .post-action i {
+            margin-right: 5px;
+            font-size: 1.1em;
+        }
 
-.create-post-card .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    padding: 10px 25px;
-    border-radius: 25px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    width: 100%; /* Make button full width */
-}
+        .back-to-home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--blue-accent);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
 
-.create-post-card .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
+        .back-to-home-button:hover {
+            background-color: var(--blue-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            color: white; /* Mantener el color blanco en hover */
+        }
+        .back-to-home-button i {
+            font-size: 1.2em;
+        }
 
-.form-text {
-    color: #aaa !important; /* Lighter muted text */
-    font-size: 0.8rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .wall-container {
-        margin: 20px auto;
-        padding: 10px;
-    }
-
-    .main-title {
-        font-size: 2rem;
-    }
-
-    .search-section,
-    .post-card {
-        padding: 15px;
-    }
-}
+        /* Modal specific styles for dark mode */
+        .modal-content {
+            background-color: #1c2e42; /* Darker background for modal */
+            color: var(--dark-text-primary);
+            border: 1px solid #4a6781;
+        }
+        .modal-header {
+            border-bottom: 1px solid #4a6781;
+        }
+        .modal-title {
+            color: var(--blue-accent);
+        }
+        .modal-footer {
+            border-top: 1px solid #4a6781;
+        }
+        .modal .form-control {
+            background-color: var(--dark-input-bg);
+            color: var(--dark-text-primary);
+            border: 1px solid var(--dark-input-border);
+        }
+        .modal .form-control::placeholder {
+            color: var(--dark-text-secondary);
+        }
+        .modal .form-control:focus {
+            border-color: var(--blue-accent);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        .modal .form-label {
+            color: var(--dark-text-primary);
+        }
+        .modal .btn-secondary {
+            background-color: #2a3d50;
+            border-color: #4a6781;
+            color: var(--dark-text-primary);
+        }
+        .modal .btn-secondary:hover {
+            background-color: #3a4d60;
+            border-color: #5a7791;
+        }
+        .modal .btn-primary {
+            background-color: var(--blue-accent);
+            border-color: var(--blue-accent);
+        }
+        .modal .btn-primary:hover {
+            background-color: var(--blue-accent-hover);
+            border-color: var(--blue-accent-hover);
+        }
+        .btn-close { 
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+ 

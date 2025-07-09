@@ -11,20 +11,20 @@
 if (!$enlace)
 {
 
-    die("no hay conexio" .mysqli_connect_error());
+    die("no hay conexion" .mysqli_connect_error());
 }
-	$nombre = $_POST["txtusuario"];
-    $pass = $_POST["txtcontrasena"];
+	$nombre = $_POST["txtcorreo"];
+
 
     $query = mysqli_query($enlace,"SELECT * FROM usuario WHERE correo = '".$nombre."' and contrasena ='".$pass."'");
     $nr = mysqli_num_rows($query);
 
-    if($nr == 1)
-    {
+    if($nr == 0)
+    { $noEncontrado = "no encontrado";
+  echo $noEncontrado;
 
-        header("Location: ../inicio/index.html");
     }
-  else if ($nr == 0)
-    {  header("Location:phpIngreso_credenciales.html")
+while()
+    { 
     }
 ?>
