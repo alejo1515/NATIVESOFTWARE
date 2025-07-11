@@ -25,7 +25,11 @@ if (!$enlace)
         header("Location: ../inicio/index.html");
     }
   else if ($nr == 0)
+<<<<<<< HEAD
     {  $noIngreso = "no ingreso";
   echo $noIngreso;
+=======
+    {  header("Location:phpIngreso_credenciales.html")
+>>>>>>> bc23e629a93d1dfd26f1bf5c006dbf68e0216cc4
     }
 ?>

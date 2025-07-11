@@ -8,6 +8,10 @@ function diferencia($conexion){
 if(isset($_POST['publicar'])){
 insertar($conexion);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> bc23e629a93d1dfd26f1bf5c006dbf68e0216cc4
 }
 
 if(isset($_POST['eliminar'])){
@@ -31,8 +35,13 @@ $consulta ="INSERT INTO publicaciones(correo, contenido,fechaPublicacion, nombre
     VALUES ('$correo', '$contenido', NOW(), '$nombre', '$links')";
 mysqli_query($conexion, $consulta);
 mysqli_close($conexion);
+<<<<<<< HEAD
 header('Location:muro.html');
 
+=======
+
+header("Location: muro.html");
+>>>>>>> bc23e629a93d1dfd26f1bf5c006dbf68e0216cc4
 }
 
 function eliminar($conexion){
